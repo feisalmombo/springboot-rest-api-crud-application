@@ -2,6 +2,9 @@ package com.example.springbootapiwithmysql;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public interface CourseService {
 
     public String upsert(Course course);
