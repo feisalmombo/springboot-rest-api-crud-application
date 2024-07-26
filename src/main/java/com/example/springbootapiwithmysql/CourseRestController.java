@@ -3,6 +3,7 @@ package com.example.springbootapiwithmysql;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,12 +31,18 @@ public class CourseRestController {
 
     @GetMapping("/courses")
     public java.util.List<Course> getAllCourses() {
-    return courseService.getAllCourses();
+        return courseService.getAllCourses();
     }
 
     @PutMapping("/course")
     public ResponseEntity<String> updateCourse(@RequestBody Course course) {
         String status = courseService.upsert(course);
+        return new ResponseEntity<>(status, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/course/{cid}")
+    public ResponseEntity<String> deleteCourse(@PathVariable Integer cid) {
+        String status = courseService.deleteById(cid);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 }
